@@ -57,6 +57,14 @@
       "genre": "",
       "price": "",
       "stock": ""
+    },
+    {
+      "id": "",
+      "title": "adb",
+      "author": "adbuhuk",
+      "genre": "Fiction",
+      "price": "342",
+      "stock": "12"
     }
   ],
   "orders": [

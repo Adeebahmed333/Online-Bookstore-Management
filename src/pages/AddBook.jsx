@@ -138,12 +138,26 @@ const AddBook = () => {
     }
     setTimeout(() => {
       setFormData({
-        id: "",
         title: "",
         author: "",
         genre: "",
         price: "",
         stock: ""
+      });
+      setFormErrors({
+        title: "",
+        author: "",
+        genre: "",
+        price: "",
+        stock: ""
+      });
+      setFormValid({
+        title: false,
+        author: false,
+        genre: false,
+        price: false,
+        stock: false,
+        buttonEnabled: false
       });
       setSuccess("");
       setError("");
