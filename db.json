@@ -65,6 +65,32 @@
       "genre": "Fiction",
       "price": "342",
       "stock": "12"
+    },
+    {
+      "id": "8391",
+      "title": "Harry",
+      "author": "Adeeb",
+      "authorGender": "male",
+      "genre": "Fiction",
+      "languages": [
+        "English",
+        "Hindi"
+      ],
+      "price": "100",
+      "stock": "1"
+    },
+    {
+      "id": "bcf0",
+      "title": "Adeeb",
+      "author": "ahmed",
+      "authorGender": "male",
+      "genre": "Fiction",
+      "languages": [
+        "Hindi",
+        "English"
+      ],
+      "price": "100",
+      "stock": "2"
     }
   ],
   "orders": [

@@ -7,6 +7,7 @@ const AddBook = () => {
     author: "",
     authorGender: "",
     genre: "",
+    languages: [],
     price: "",
     stock: ""
   })
@@ -16,6 +17,7 @@ const AddBook = () => {
     author: "",
     authorGender: "",
     genre: "",
+    languages: "",
     price: "",
     stock: ""
   })
@@ -25,94 +27,115 @@ const AddBook = () => {
     author: false,
     authorGender: false,
     genre: false,
+    languages: false,
     price: false,
     stock: false,
     buttonEnabled: false,
   })
+
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
 
   const genreData = ["Fiction", "Non-fiction", "Sci-Fi", "Mystery"];
+  const languageData = ["English", "Hindi", "French"];
 
   const validateForm = (fieldName, fieldValue) => {
     const newFormErrors = { ...formErrors };
     const newFormValid = { ...formValid };
+
     switch (fieldName) {
       case "title":
         if (!/^[a-zA-Z\s]{3,}$/.test(fieldValue)) {
           newFormErrors.title = "Regex Validation Failed";
           newFormValid.title = false;
-        }
-        else {
+        } else {
           newFormErrors.title = "";
           newFormValid.title = true;
         }
         break;
+
       case "author":
         if (!/^[a-zA-Z\s]{3,}$/.test(fieldValue)) {
           newFormErrors.author = "Regex Validation Failed";
           newFormValid.author = false;
-        }
-        else {
+        } else {
           newFormErrors.author = "";
           newFormValid.author = true;
         }
         break;
+
       case "genre":
         if (fieldValue === "") {
           newFormErrors.genre = "Genre Can't be Empty";
           newFormValid.genre = false;
-        }
-        else {
+        } else {
           newFormErrors.genre = "";
           newFormValid.genre = true;
         }
         break;
+
       case "authorGender":
         if (fieldValue === "") {
           newFormErrors.authorGender = "Author Gender Can't be Empty";
           newFormValid.authorGender = false;
-        }
-        else {
+        } else {
           newFormErrors.authorGender = "";
           newFormValid.authorGender = true;
         }
         break;
+
+      case "languages":
+        if (fieldValue.length === 0) {
+          newFormErrors.languages = "Select at least one language";
+          newFormValid.languages = false;
+        } else {
+          newFormErrors.languages = "";
+          newFormValid.languages = true;
+        }
+        break;
+
       case "price":
         if (!/^\d+$/.test(fieldValue)) {
           newFormErrors.price = "Regex Validation Failed";
           newFormValid.price = false;
-        }
-        else if (Number(fieldValue) <= 0) {
+        } else if (Number(fieldValue) <= 0) {
           newFormErrors.price = "Can't Be Negative or Zero";
           newFormValid.price = false;
-        }
-        else {
+        } else {
           newFormErrors.price = "";
           newFormValid.price = true;
         }
         break;
+
       case "stock":
         if (!/^\d+$/.test(fieldValue)) {
           newFormErrors.stock = "Regex Validation Failed";
           newFormValid.stock = false;
-        }
-        else if (Number(fieldValue) < 0) {
+        } else if (Number(fieldValue) < 0) {
           newFormErrors.stock = "Can't Be Negative";
           newFormValid.stock = false;
-        }
-        else {
+        } else {
           newFormErrors.stock = "";
           newFormValid.stock = true;
         }
         break;
+
       default:
         break;
     }
-    newFormValid.buttonEnabled = newFormValid.author && newFormValid.genre && newFormValid.price && newFormValid.stock && newFormValid.title && newFormValid.authorGender
+
+    newFormValid.buttonEnabled =
+      newFormValid.title &&
+      newFormValid.author &&
+      newFormValid.authorGender &&
+      newFormValid.genre &&
+      newFormValid.languages &&
+      newFormValid.price &&
+      newFormValid.stock;
+
     setFormErrors(newFormErrors);
     setFormValid(newFormValid);
-  }
+  };
 
   const handleChange = (e) => {
     const fieldName = e.target.name;
@@ -120,11 +143,26 @@ const AddBook = () => {
 
     const newFormData = {
       ...formData,
-      [fieldName]: fieldValue
-    }
+      [fieldName]: fieldValue,
+    };
+
     setFormData(newFormData);
     validateForm(fieldName, fieldValue);
-  }
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { value, checked } = e.target;
+    let updatedLanguages = [...formData.languages];
+
+    if (checked) {
+      updatedLanguages.push(value);
+    } else {
+      updatedLanguages = updatedLanguages.filter((lang) => lang !== value);
+    }
+
+    setFormData({ ...formData, languages: updatedLanguages });
+    validateForm("languages", updatedLanguages);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -136,88 +174,127 @@ const AddBook = () => {
       setError("Error While Submitting The Form!");
       console.log(error.message);
     }
+
     setTimeout(() => {
       setFormData({
         title: "",
         author: "",
+        authorGender: "",
         genre: "",
+        languages: [],
         price: "",
         stock: ""
       });
       setFormErrors({
         title: "",
         author: "",
+        authorGender: "",
         genre: "",
+        languages: "",
         price: "",
         stock: ""
       });
       setFormValid({
         title: false,
         author: false,
+        authorGender: false,
         genre: false,
+        languages: false,
         price: false,
         stock: false,
-        buttonEnabled: false
+        buttonEnabled: false,
       });
       setSuccess("");
       setError("");
-    }, 5000)
-  }
+    }, 5000);
+  };
 
   return (
-    <div className="container bg-black text-white p-3" style={{ width: "600px" }}>
+    <div
+      className="container bg-black text-white p-3 mt-4"
+      style={{ width: "600px" }}
+    >
       <form onSubmit={handleSubmit}>
+        {/* Title */}
         <div className="form-group mb-3">
           <label htmlFor="title" className="form-label">Title:</label>
           <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} className="form-control" />
           <span className="text-danger">{formErrors.title}</span>
         </div>
+
+        {/* Author */}
         <div className="form-group mb-3">
           <label htmlFor="author" className="form-label">Author:</label>
           <input type="text" id="author" name="author" value={formData.author} onChange={handleChange} className="form-control" />
           <span className="text-danger">{formErrors.author}</span>
         </div>
+
+        {/* Radio (Author Gender) */}
         <label className="form-label">Author Gender:&nbsp;&nbsp;</label>
         <div className="form-check form-check-inline">
-          <input type="radio" id="authorGender" name="authorGender" value="male" onChange={handleChange} className="form-check-input" />
-          <label className="form-check-label">Male</label>
+          <input type="radio" id="male" name="authorGender" value="male" onChange={handleChange} checked={formData.authorGender === "male"} className="form-check-input" />
+          <label className="form-check-label" htmlFor="male">Male</label>
         </div>
         <div className="form-check form-check-inline">
-          <input type="radio" id="authorGender" name="authorGender" value="female" onChange={handleChange} className="form-check-input" />
-          <label className="form-check-label">Female</label>
+          <input type="radio" id="female" name="authorGender" value="female" onChange={handleChange} checked={formData.authorGender === "female"} className="form-check-input" />
+          <label className="form-check-label" htmlFor="female">Female</label>
         </div>
         <span className="text-danger">{formErrors.authorGender}</span>
+
+        {/* Dropdown (Genre) */}
         <div className="form-group mb-3">
           <label htmlFor="genre" className="form-label">Genre:</label>
-          <select type="text" id="genre" name="genre" value={formData.genre} onChange={handleChange} className="form-select" >
-            <option value="" >--Select Genre--</option>
-            {
-              genreData.map((item, index) => {
-                return (
-                  <option value={item} key={index}>{item}</option>
-                )
-              })
-            }
+          <select id="genre" name="genre" value={formData.genre} onChange={handleChange} className="form-select">
+            <option value="">--Select Genre--</option>
+            {genreData.map((item, index) => (
+              <option value={item} key={index}>{item}</option>
+            ))}
           </select>
           <span className="text-danger">{formErrors.genre}</span>
         </div>
+
+        {/* Checkbox (Languages) */}
+        <div className="form-group mb-3">
+          <label className="form-label">Languages:</label>
+          <div>
+            {languageData.map((lang, idx) => (
+              <div className="form-check form-check-inline" key={idx}>
+                <input
+                  type="checkbox"
+                  name="languages"
+                  value={lang}
+                  onChange={handleCheckboxChange}
+                  checked={formData.languages.includes(lang)}
+                  className="form-check-input"
+                />
+                <label className="form-check-label">{lang}</label>
+              </div>
+            ))}
+          </div>
+          <span className="text-danger">{formErrors.languages}</span>
+        </div>
+
+        {/* Price */}
         <div className="form-group mb-3">
           <label htmlFor="price" className="form-label">Price:</label>
           <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} className="form-control" />
           <span className="text-danger">{formErrors.price}</span>
         </div>
+
+        {/* Stock */}
         <div className="form-group mb-3">
           <label htmlFor="stock" className="form-label">Stock:</label>
           <input type="text" id="stock" name="stock" value={formData.stock} onChange={handleChange} className="form-control" />
           <span className="text-danger">{formErrors.stock}</span>
         </div>
+
+        {/* Submit */}
         <button className="btn btn-success d-flex m-auto" type="submit" disabled={!formValid.buttonEnabled}>Add Book</button>
         {success !== "" && <span className="text-success text-center">{success}</span>}
         {error !== "" && <span className="text-danger text-center">{error}</span>}
       </form>
-
     </div>
-  )
-}
+  );
+};
 
-export default AddBook
+export default AddBook;
