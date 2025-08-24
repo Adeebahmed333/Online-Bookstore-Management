@@ -40,6 +40,23 @@
       "genre": "Fiction",
       "price": "2389",
       "stock": "4"
+    },
+    {
+      "id": "d918",
+      "title": "dsfaf",
+      "author": "sdfsfs",
+      "authorGender": "male",
+      "genre": "Fiction",
+      "price": "32",
+      "stock": "3"
+    },
+    {
+      "id": "",
+      "title": "",
+      "author": "",
+      "genre": "",
+      "price": "",
+      "stock": ""
     }
   ],
   "orders": [
