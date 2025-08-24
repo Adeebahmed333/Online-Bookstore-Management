@@ -5,6 +5,7 @@ const AddBook = () => {
   const [formData, setFormData] = useState({
     title: "",
     author: "",
+    authorGender: "",
     genre: "",
     price: "",
     stock: ""
@@ -13,6 +14,7 @@ const AddBook = () => {
   const [formErrors, setFormErrors] = useState({
     title: "",
     author: "",
+    authorGender: "",
     genre: "",
     price: "",
     stock: ""
@@ -21,6 +23,7 @@ const AddBook = () => {
   const [formValid, setFormValid] = useState({
     title: false,
     author: false,
+    authorGender: false,
     genre: false,
     price: false,
     stock: false,
@@ -65,6 +68,16 @@ const AddBook = () => {
           newFormValid.genre = true;
         }
         break;
+      case "authorGender":
+        if (fieldValue === "") {
+          newFormErrors.authorGender = "Author Gender Can't be Empty";
+          newFormValid.authorGender = false;
+        }
+        else {
+          newFormErrors.authorGender = "";
+          newFormValid.authorGender = true;
+        }
+        break;
       case "price":
         if (!/^\d+$/.test(fieldValue)) {
           newFormErrors.price = "Regex Validation Failed";
@@ -96,7 +109,7 @@ const AddBook = () => {
       default:
         break;
     }
-    newFormValid.buttonEnabled = newFormValid.author && newFormValid.genre && newFormValid.price && newFormValid.stock && newFormValid.title
+    newFormValid.buttonEnabled = newFormValid.author && newFormValid.genre && newFormValid.price && newFormValid.stock && newFormValid.title && newFormValid.authorGender
     setFormErrors(newFormErrors);
     setFormValid(newFormValid);
   }
@@ -150,6 +163,16 @@ const AddBook = () => {
           <input type="text" id="author" name="author" value={formData.author} onChange={handleChange} className="form-control" />
           <span className="text-danger">{formErrors.author}</span>
         </div>
+        <label className="form-label">Author Gender:&nbsp;&nbsp;</label>
+        <div className="form-check form-check-inline">
+          <input type="radio" id="authorGender" name="authorGender" value="male" onChange={handleChange} className="form-check-input" />
+          <label className="form-check-label">Male</label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input type="radio" id="authorGender" name="authorGender" value="female" onChange={handleChange} className="form-check-input" />
+          <label className="form-check-label">Female</label>
+        </div>
+        <span className="text-danger">{formErrors.authorGender}</span>
         <div className="form-group mb-3">
           <label htmlFor="genre" className="form-label">Genre:</label>
           <select type="text" id="genre" name="genre" value={formData.genre} onChange={handleChange} className="form-select" >
