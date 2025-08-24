@@ -56,10 +56,7 @@
       "author": "Adeeb",
       "authorGender": "male",
       "genre": "Fiction",
-      "languages": [
-        "English",
-        "Hindi"
-      ],
+      "languages": ["English", "Hindi"],
       "price": "100",
       "stock": "1"
     },
@@ -69,10 +66,7 @@
       "author": "ahmed",
       "authorGender": "male",
       "genre": "Fiction",
-      "languages": [
-        "Hindi",
-        "English"
-      ],
+      "languages": ["Hindi", "English"],
       "price": "100",
       "stock": "2"
     }
@@ -91,6 +85,13 @@
       "bookTitle": "The Lean Startup",
       "quantity": 1,
       "status": "Delivered"
+    },
+    {
+      "id": "3",
+      "customerName": "Ravi Kumar",
+      "bookTitle": "The Great Gatsby",
+      "quantity": 2,
+      "status": "Shipped"
     }
   ]
 }
