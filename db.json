@@ -1,0 +1,44 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "genre": "Fiction",
+      "price": 299,
+      "stock": 20
+    },
+    {
+      "id": 2,
+      "title": "A Brief History of Time",
+      "author": "Stephen Hawking",
+      "genre": "Science",
+      "price": 499,
+      "stock": 0
+    },
+    {
+      "id": 3,
+      "title": "The Lean Startup",
+      "author": "Eric Ries",
+      "genre": "Business",
+      "price": 399,
+      "stock": 75
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "customerName": "Ravi Kumar",
+      "bookTitle": "The Great Gatsby",
+      "quantity": 2,
+      "status": "Pending"
+    },
+    {
+      "id": 2,
+      "customerName": "Anita Sharma",
+      "bookTitle": "The Lean Startup",
+      "quantity": 1,
+      "status": "Delivered"
+    }
+  ]
+}
