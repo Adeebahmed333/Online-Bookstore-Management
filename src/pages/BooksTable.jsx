@@ -64,7 +64,7 @@ const BooksTable = () => {
                           item.price
                         }
                       </td>
-                      <td>
+                      <td style={{color: (item.stock===0)? "red" : (item.stock>50) ? "green" : "black" }}>
                         {
                           item.stock
                         }
